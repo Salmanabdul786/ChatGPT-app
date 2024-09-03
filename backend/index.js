@@ -1,6 +1,8 @@
 import express from "express";
 import ImageKit from "imagekit";
 import cors from "cors";
+import path from "path";
+import url, { fileURLToPath } from "url";
 import mongoose from "mongoose";
 import UserChats from "./models/userchat.js";
 import Chat from "./models/chat.js";
@@ -14,7 +16,8 @@ app.use(
     credentials: true,
   })
 );
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(express.json());
 
 const connect = async () => {
@@ -142,6 +145,19 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(401).send("Unauthenticated!");
 });
+
+
+
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend", "index.html"));
+});
+
+
+
+
+
 app.listen(port, () => {
   connect();
   console.log("Server running on 3000");

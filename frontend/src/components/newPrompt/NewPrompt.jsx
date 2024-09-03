@@ -20,7 +20,7 @@ const NewPrompt = ({ data }) => {
     history: [
       {
         role: "user",
-        parts: [{ text: "Hello, I have 2 dogs in my house." }],
+        parts: [{ text: "Hello" }],
       },
       {
         role: "model",
